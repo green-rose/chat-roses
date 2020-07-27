@@ -1,0 +1,30 @@
+.navbar{
+    background-color:rgb(4,115,53);
+}
+.navbar-dark:hover .navbar-brand:hover {
+    color:rgb(61,184,121);
+}
+
+a{
+    color:rgb(4,115,53);
+}
+a:hover{
+    color:rgb(4,115,53);
+}
+.nav-link.disabled {
+    color:rgb(61,184,121);
+}
+.btn-primary{
+    background-color:rgb(4,115,53);
+    border:0px ;
+    margin-top: 5px;
+}
+.btn-primary:hover {
+    background-color:rgb(4,115,53);
+    color:rgb(61,184,121);
+}
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: rgb(4,115,53);
+    background-color: rgb(4,115,53);
+}
