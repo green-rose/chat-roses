@@ -3,13 +3,13 @@ package com.gfa.chat.controllers;
 import com.gfa.chat.models.User;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 
 public class MainRestController {
 
@@ -18,18 +18,8 @@ public class MainRestController {
      * body can be represented by: Map<String, Object> or Models objects itself
      * Returns the whole JSON response parsed to User.class
      * */
-    @GetMapping("/register")
-    ResponseEntity<?> register() {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://rascals-chat.herokuapp.com/api/user/register";
-        Map<String, Object> data = new HashMap<>();
-        data.put("login", "u7");
-        data.put("password", "123");
-
-        ResponseEntity<?> response = restTemplate.postForEntity(url, data, User.class);
-
-        User user = (User) response.getBody();
-        return response;
+    @PostMapping("/register-send")
+    void registered() {
     }
 
     /*
@@ -124,12 +114,12 @@ public class MainRestController {
     /*
      * Example of returning object array as responseEntity
      */
-    @GetMapping("/test")
-    ResponseEntity<List<User>> test() {
-        List<User> users = new ArrayList<>();
-        users.add(new User(1, "myUser", null));
-        users.add(new User(2, "anotherUser", null));
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }
+//    @GetMapping("/test")
+//    ResponseEntity<List<User>> test() {
+//        List<User> users = new ArrayList<>();
+//        users.add(new User(1, "myUser", null));
+//        users.add(new User(2, "anotherUser", null));
+//        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+//    }
 
 }

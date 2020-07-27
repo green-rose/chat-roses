@@ -17,12 +17,12 @@ a:hover{
 .btn-primary{
     background-color:rgb(4,115,53);
     border:0px ;
-    margin-top: 5px;
 }
 .btn-primary:hover {
     background-color:rgb(4,115,53);
     color:rgb(61,184,121);
 }
+
 .custom-control-input:checked~.custom-control-label::before {
     color: #fff;
     border-color: rgb(4,115,53);

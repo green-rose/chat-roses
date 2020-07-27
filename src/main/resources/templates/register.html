@@ -22,21 +22,24 @@
             <img src="greenfox.png" width="40" height="40" alt="" loading="lazy">
         </span>
     </nav>
-
-    <h1>Green Roses</h1>
-    <form method="post" action="send-msg">
-        <div class="form-row">
-            <div class="col-10">
-                <label for="msg" class="sr-only">Email</label>
-                <input type="text" class="form-control" id="msg"  placeholder="Put your message here" aria-label="Send msg">
-            </div>
-            <div class="col-2">
-                <input class="btn btn-primary" type="submit" id="searchBtn">
-            </div>
+    <h1>Register user:</h1>
+    <div class="row">
+        <div class="col-6">
+            <form action="/register" method="post" >
+                <div class="form-group">
+                    <label for="username" class="sr-only">Name</label>
+                    <input class="form-control" type="text" name="username" id="username" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">Name</label>
+                    <input class="form-control" type="password" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <input  class="btn btn-primary mb-2" type="submit" value="register">
+                </div>
+            </form>
         </div>
-    </form>
-
-
+    </div>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
