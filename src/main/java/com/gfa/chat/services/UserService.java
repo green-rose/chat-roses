@@ -1,6 +1,7 @@
 package com.gfa.chat.services;
 
 import com.gfa.chat.models.User;
+import com.gfa.chat.models.UserUpdateDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,7 @@ public interface UserService {
 
     public ResponseEntity<?> login(User user);
 
-    public ResponseEntity<?> update(User user);
+    public ResponseEntity<?> update(UserUpdateDTO newUser, User user);
+
+    boolean logout(User user);
 }
