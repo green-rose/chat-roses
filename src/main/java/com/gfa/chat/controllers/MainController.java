@@ -1,8 +1,9 @@
 package com.gfa.chat.controllers;
 
-import com.gfa.chat.models.CustomError;
+import com.gfa.chat.models.MsgRequestDTO;
 import com.gfa.chat.models.User;
 import com.gfa.chat.models.UserUpdateDTO;
+import com.gfa.chat.services.MsgService;
 import com.gfa.chat.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,13 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
-    public MainController(UserService userService) {
+    public MainController(UserService userService, MsgService msgService) {
         this.userService = userService;
+        this.msgService = msgService;
     }
 
     private UserService userService;
-
+    private MsgService msgService;
 
     @GetMapping("/")
     public String index(HttpSession session) {
@@ -40,10 +42,10 @@ public class MainController {
     String registered(@ModelAttribute User user, Model m) {
         ResponseEntity<?> response = this.userService.registered(user);
         if (response.getStatusCode()== HttpStatus.OK){
-            m.addAttribute((User) response.getBody());
+            m.addAttribute(response.getBody());
             return "login";
         } else {
-            m.addAttribute("errorLog",(CustomError) response.getBody());
+            m.addAttribute("errorLog", response.getBody());
             return "errorPage";
         }
     }
@@ -62,7 +64,7 @@ public class MainController {
             session.setAttribute("userSession", loggedUser);
             return "index";
         } else {
-            m.addAttribute("errorLog", (CustomError) response.getBody());
+            m.addAttribute("errorLog", response.getBody());
             return "errorPage";
         }
     }
@@ -82,7 +84,7 @@ public class MainController {
             session.setAttribute("user", (loggedUser));
             return "index";
         } else {
-            m.addAttribute("errorLog",(CustomError) response.getBody());
+            m.addAttribute("errorLog", response.getBody());
             return "errorPage";
         }
     }
@@ -98,15 +100,25 @@ public class MainController {
     }
 
     @PostMapping("/send-msg")
-    String sendMsg(@ModelAttribute UserUpdateDTO userUpdate, Model m, HttpSession session) {
-        ResponseEntity<?> response = this.userService.update(userUpdate, (User) session.getAttribute("userSession"));
+    String sendMsg(@ModelAttribute MsgRequestDTO msg, HttpSession session, Model m) {
+        ResponseEntity<?> response = this.msgService.send(msg, ((User) session.getAttribute("userSession")).getApiKey());
         if (response.getStatusCode()== HttpStatus.OK){
-            User loggedUser = (User)response.getBody();
-            m.addAttribute("user",loggedUser);
-            session.setAttribute("user", (loggedUser));
-            return "index";
+            return "redirect:/";
         } else {
-            m.addAttribute("errorLog",(CustomError) response.getBody());
+            m.addAttribute("errorLog", response.getBody());
+            return "errorPage";
+        }
+    }
+
+    @GetMapping("/get-msg")
+    String getMsg(HttpSession session, Model m) {
+        ResponseEntity<?> response = this.msgService.get(((User) session.getAttribute("userSession")).getApiKey(), null);
+        if (response.getStatusCode()== HttpStatus.OK){
+            session.setAttribute("user",response.getBody());
+            System.out.println(response.getBody().toString());
+            return "redirect:/";
+        } else {
+            m.addAttribute("errorLog", response.getBody());
             return "errorPage";
         }
     }

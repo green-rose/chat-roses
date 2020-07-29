@@ -6,8 +6,6 @@ import com.gfa.chat.models.UserUpdateDTO;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.rmi.ServerError;
 import java.util.HashMap;
 import java.util.Map;
 
